@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -27,6 +28,9 @@ kotlin {
             implementation("io.coil-kt.coil3:coil-gif:3.0.0")   // for support gif img rendering
             implementation("io.coil-kt.coil3:coil-svg:3.0.0")   // for support svg img rendering
 
+            // Room
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.room.ktx)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)  // this libs for composable ui standard lib
@@ -42,6 +46,10 @@ kotlin {
             implementation(libs.kotlin.test)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
 }
 
 android {

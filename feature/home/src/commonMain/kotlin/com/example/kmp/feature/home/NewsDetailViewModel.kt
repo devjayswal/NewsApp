@@ -22,4 +22,11 @@ class NewsDetailViewModel(
             _newsDetail.value = repository.getNewsById(id)
         }
     }
+    fun saveNews(newsItem: NewsItem) {
+        viewModelScope.launch {
+            repository.saveNews(newsItem)
+            // You can perform any additional actions here after saving the news
+
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package screen
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -26,7 +28,8 @@ import com.example.kmp.feature.home.HomeViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
-    onNewsClick: (NewsItem) -> Unit
+    onNewsClick: (NewsItem) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     val news by viewModel.news.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -56,25 +59,59 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.18f),
+                        MaterialTheme.colorScheme.background
+                    )
+                )
+            )
+            .padding(contentPadding)
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Latest News", style = MaterialTheme.typography.headlineMedium)
+        ElevatedCard(
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f)
+            )
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 14.dp)) {
+                Text(
+                    "Latest News",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    "Fresh stories in a brighter layout",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(state = listState) {
                 itemsIndexed(news) { index, newsItem ->
+                    val cardColor = when (index % 3) {
+                        0 -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.75f)
+                        1 -> MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.72f)
+                        else -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.72f)
+                    }
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp)
-                            .clickable { onNewsClick(newsItem) }
+                            .clickable { onNewsClick(newsItem) },
+                        colors = CardDefaults.cardColors(containerColor = cardColor),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
                                 newsItem.title,
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             AsyncImage(
@@ -91,6 +128,7 @@ fun HomeScreen(
                             Text(
                                 newsItem.summary,
                                 style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 maxLines = 3
                             )
                         }
