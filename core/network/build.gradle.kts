@@ -18,15 +18,16 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.utils)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.coil)
+            implementation(projects.core.utils)   // to import utils core so that we can use apiwrapper
+            implementation(libs.kotlinx.serialization.json) // for json serialization and deserialization
+            implementation(libs.coil)   // for image rendering not in  use in this module
         }
         androidMain.dependencies {
-            implementation(libs.retrofit.core)
-            implementation(libs.retrofit.kotlin.serialization)
-            implementation(libs.okhttp.core)
-            implementation(libs.okhttp.logging)
+            implementation(libs.retrofit.core)       // retrofit for api call
+            implementation(libs.retrofit.kotlin.serialization)  // retrofit for json to object convert
+            implementation(libs.okhttp.core)    // okhttp for network call and logging interceptor for log network call in logcat
+            implementation(libs.okhttp.logging) // okhttp for network call and logging interceptor for log network call in logcat
+
         }
     }
 }

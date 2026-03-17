@@ -34,16 +34,16 @@ include(":composeApp")
 include(":shared")
 
 // Core Modules
-include(":core:network")
-include(":core:database")
-include(":core:utils")
-include(":core:common-ui")
+include(":core:network")         // core modules  including so that we can use it anywhere
+include(":core:database")    // core modules  including so that we can use it anywhere
+include(":core:utils")   // core modules  including so that we can use it anywhere
+include(":core:common-ui")   // core modules  including so that we can use it anywhere
 
 // Feature Modules
-include(":feature:home")
-include(":feature:appointments")
-include(":feature:pharmacy")
-include(":feature:records")
-include(":feature:family")
-include(":feature:profile")
-include(":feature:settings")
+include(":feature:home")            // including feature  so that we can use it too inside project
+include(":feature:appointments")            // including feature  so that we can use it too inside project
+include(":feature:pharmacy")            // including feature  so that we can use it too inside project
+include(":feature:records")         // including feature  so that we can use it too inside project
+include(":feature:family")  // including feature  so that we can use it too inside project
+include(":feature:profile") // including feature  so that we can use it too inside project
+include(":feature:settings")    // including feature  so that we can use it too inside project

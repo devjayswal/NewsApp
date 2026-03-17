@@ -19,25 +19,24 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
-            implementation(projects.feature.home)
-            implementation(projects.core.network)
-            implementation(projects.core.utils)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
-            implementation("io.coil-kt.coil3:coil-gif:3.0.0")
-            implementation("io.coil-kt.coil3:coil-svg:3.0.0")
+            implementation(projects.feature.home)  // this line include home feature in this module
+            implementation(projects.core.network)  // this line include network core in this module
+            implementation(projects.core.utils)   // this line include utils core in this module
+            implementation(libs.coil.compose)     // this lib help to  render image  from url with async
+            implementation(libs.coil.network.okhttp)  // this lib  help to use http for above lib
+            implementation("io.coil-kt.coil3:coil-gif:3.0.0")   // for support gif img rendering
+            implementation("io.coil-kt.coil3:coil-svg:3.0.0")   // for support svg img rendering
 
         }
         commonMain.dependencies {
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.components.resources)
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation(projects.shared)
+            implementation(libs.compose.runtime)  // this libs for composable ui standard lib
+            implementation(libs.compose.foundation) // this libs for composable ui standard lib
+            implementation(libs.compose.material3)   // this libs for composable ui standard lib
+            implementation(libs.compose.ui)         // this libs for composable ui standard lib
+            implementation(libs.compose.components.resources)  // this libs for composable ui standard lib implementation(libs.compose.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodelCompose) // to access viewmodel in compose
+            implementation(libs.androidx.lifecycle.runtimeCompose)  // to access viewmodel in compose
+            implementation(projects.shared)  // to access shared folder currently unused
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
