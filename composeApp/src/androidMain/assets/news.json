@@ -1,0 +1,29 @@
+{
+  "count": 10,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1662,
+      "title": "Starliner arrives safely back on Earth",
+      "authors": [],
+      "url": "https://starlinerupdates.com/starliner-arrives-safely-back-on-earth/",
+      "image_url": "https://boeing-jtti.s3.amazonaws.com/wp-content/uploads/2023/02/13165520/docking_with_earth_in_background_out_window.png",
+      "news_site": "Boeing",
+      "summary": "Boeing’s Starliner landed safely at 12:01 a.m. Eastern time on Saturday, Sept. 7. After an extended stay at the ISS, Starliner’s reusable crew module touched down at White Sands Space Harbor.",
+      "published_at": "2024-09-07T04:14:32Z",
+      "updated_at": "2024-09-07T04:18:06.656360Z"
+    },
+    {
+      "id": 1657,
+      "title": "ISS Daily Summary Report – 7/26/2024",
+      "authors": [],
+      "url": "https://blogs.nasa.gov/stationreport/2024/07/26/iss-daily-summary-report-7-26-2024/",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/ISS_after_completion_%28as_of_June_2006%29.jpg",
+      "news_site": "NASA",
+      "summary": "The CFT crew continued assisting the ISS crew with various audits and housekeeping. They also performed CloudNet Testing and STEMonstration Earth Science activities.",
+      "published_at": "2024-07-26T19:21:00Z",
+      "updated_at": "2024-08-01T19:21:29.070476Z"
+    }
+  ]
+}
