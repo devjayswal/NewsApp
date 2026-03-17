@@ -98,9 +98,9 @@ fun NewsDetailScreen(
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { goto(newsItem.url) }) {
-                        Text("Read More")
-                    )
+//                    Button(onClick = { goto(newsItem.url) }) {
+//                        Text("Read More")
+//                    }
                 }
             }
         }
