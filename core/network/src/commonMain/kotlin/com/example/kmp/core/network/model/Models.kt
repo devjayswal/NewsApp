@@ -52,5 +52,8 @@ data class NetworkUser(
     val firstName: String,
     val lastName: String,
     val email: String,
-    val city: String
+    val city: String,
+    val gender: String,
+    val language: String,
+    val address: String
 )

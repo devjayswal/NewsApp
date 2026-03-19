@@ -26,7 +26,7 @@ import com.example.kmp.feature.home.NewsDetailViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsDetailScreen(
-    newsItem: NewsItem,
+    newsId: Int,
     viewModel: NewsDetailViewModel,
     onBackClick: () -> Unit,
     onSaveClick: (NewsItem) -> Unit,
@@ -34,9 +34,10 @@ fun NewsDetailScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.newsDetail.collectAsState()
+    val newsItem = (state as? AppResult.Success)?.data
 
-    LaunchedEffect(newsItem.id) {
-        viewModel.loadNewsDetail(newsItem.id)
+    LaunchedEffect(newsId) {
+        viewModel.loadNewsDetail(newsId)
     }
 
     Scaffold(
@@ -80,7 +81,7 @@ fun NewsDetailScreen(
                     .verticalScroll(rememberScrollState())
             ) {
                 AsyncImage(
-                    model = newsItem.imageUrl,
+                    model = newsItem?.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -95,76 +96,88 @@ fun NewsDetailScreen(
                         )
                     ) {
                         Column(modifier = Modifier.padding(18.dp)) {
-                    Text(
-                        text = newsItem.title,
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "By ${newsItem.newsSite} • ${newsItem.publishedAt}",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    val displaySummary = newsItem.summary
-
-                    Text(
-                        text = displaySummary,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-
-                    if (state is AppResult.Loading) {
-                        LinearProgressIndicator(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 8.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Button(
-                                onClick = { shareText(context, newsItem.url) },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondary,
-                                    contentColor = MaterialTheme.colorScheme.onSecondary
+                            if (state is AppResult.Loading) {
+                                LinearProgressIndicator(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 12.dp)
                                 )
-                            ) {
-                                Text("Share")
                             }
-                            Button(
-                                onClick = { onSaveClick(newsItem) },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.tertiary,
-                                    contentColor = MaterialTheme.colorScheme.onTertiary
+
+                            if (newsItem == null) {
+                                Text(
+                                    text = (state as? AppResult.Error)?.message ?: "Loading article...",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = if (state is AppResult.Error) {
+                                        MaterialTheme.colorScheme.error
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurface
+                                    }
                                 )
-                            ) {
-                                Text("Save")
+                            } else {
+                                Text(
+                                    text = newsItem.title,
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = "By ${newsItem.newsSite} • ${newsItem.publishedAt}",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.secondary
+                                )
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                val displaySummary = newsItem.summary
+
+                                Text(
+                                    text = displaySummary,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Button(
+                                            onClick = { shareText(context, newsItem.url) },
+                                            modifier = Modifier.weight(1f),
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                            )
+                                        ) {
+                                            Text("Share")
+                                        }
+                                        Button(
+                                            onClick = { onSaveClick(newsItem) },
+                                            modifier = Modifier.weight(1f),
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.tertiary,
+                                                contentColor = MaterialTheme.colorScheme.onTertiary
+                                            )
+                                        ) {
+                                            Text("Save")
+                                        }
+                                    }
+                                    Button(
+                                        onClick = { onSummeryClick(displaySummary) },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.primary,
+                                            contentColor = MaterialTheme.colorScheme.onPrimary
+                                        )
+                                    ) {
+                                        Text("Read More")
+                                    }
+                                }
                             }
-                        }
-                        Button(
-                            onClick = { onSummeryClick(displaySummary) },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            )
-                        ) {
-                            Text("Read More")
-                        }
-                    }
                         }
                     }
                 }

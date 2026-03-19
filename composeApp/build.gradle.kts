@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -20,17 +21,24 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.navigation.compose)
             implementation(projects.feature.home)  // this line include home feature in this module
+            implementation(projects.feature.search)  // this line include search feature in this module
+            implementation(projects.feature.profile)  // this line include profile feature in this module
             implementation(projects.core.network)  // this line include network core in this module
             implementation(projects.core.utils)   // this line include utils core in this module
+            implementation(projects.common)  // this line include database core in this module)
             implementation(libs.coil.compose)     // this lib help to  render image  from url with async
             implementation(libs.coil.network.okhttp)  // this lib  help to use http for above lib
             implementation("io.coil-kt.coil3:coil-gif:3.0.0")   // for support gif img rendering
             implementation("io.coil-kt.coil3:coil-svg:3.0.0")   // for support svg img rendering
+            implementation("androidx.core:core-splashscreen:1.0.1")
+            implementation(libs.google.material)
 
             // Room
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.room.ktx)
+
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)  // this libs for composable ui standard lib
@@ -40,6 +48,7 @@ kotlin {
             implementation(libs.compose.components.resources)  // this libs for composable ui standard lib implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose) // to access viewmodel in compose
             implementation(libs.androidx.lifecycle.runtimeCompose)  // to access viewmodel in compose
+            implementation(libs.kotlinx.serialization.json)
             implementation(projects.shared)  // to access shared folder currently unused
         }
         commonTest.dependencies {

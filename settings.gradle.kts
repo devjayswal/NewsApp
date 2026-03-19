@@ -47,5 +47,6 @@ include(":feature:records")         // including feature  so that we can use it 
 include(":feature:family")  // including feature  so that we can use it too inside project
 include(":feature:profile") // including feature  so that we can use it too inside project
 include(":feature:settings")    // including feature  so that we can use it too inside project
-include(":new_feature:auth") //
-//include(":1")  // including  module  1
+//include(":new_feature:auth") //
+include(":feature:search")
+include(":common")

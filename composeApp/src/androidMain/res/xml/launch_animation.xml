@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style name="Theme.App.Splash" parent="Theme.SplashScreen">
+<item>@color/black</item>
+<item>@drawable/ic_logo</item>
+<item>@style/Theme.App</item>
+</style>

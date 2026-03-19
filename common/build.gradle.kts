@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -13,7 +14,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.compose.runtime)          // composable function standard library
@@ -28,14 +29,20 @@ kotlin {
             implementation(projects.core.network) // to access the core utils and network
             implementation(libs.coil)  // for loading the async image from url
             implementation("io.coil-kt.coil3:coil-compose:3.0.0")  // for loading the async image from url
-//            implementation(project.feature.home)
-
+            
+            // Use api for Room so that modules depending on :common can access Room classes
+            api(libs.androidx.room.runtime)
+            api(libs.androidx.room.ktx)
         }
     }
 }
 
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+}
+
 android {
-    namespace = "com.example.kmp.feature.home"
+    namespace = "com.example.kmp.common"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

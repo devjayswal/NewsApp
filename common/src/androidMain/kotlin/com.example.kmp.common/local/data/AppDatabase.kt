@@ -1,9 +1,10 @@
-package com.example.kmp.data.local
+package com.example.kmp.common.local.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.kmp.common.local.data.NewsDao
 
 @Database(entities = [NewsEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

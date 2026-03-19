@@ -2,8 +2,8 @@ package com.example.kmp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmp.data.local.NewsDao
-import com.example.kmp.data.local.NewsEntity
+import com.example.kmp.common.local.data.NewsDao
+import com.example.kmp.common.local.data.NewsEntity
 import com.example.kmp.core.network.model.NewsItem
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

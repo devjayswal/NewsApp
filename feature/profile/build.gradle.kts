@@ -13,7 +13,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.compose.runtime)          // composable function standard library
@@ -28,14 +28,14 @@ kotlin {
             implementation(projects.core.network) // to access the core utils and network
             implementation(libs.coil)  // for loading the async image from url
             implementation("io.coil-kt.coil3:coil-compose:3.0.0")  // for loading the async image from url
-//            implementation(project.feature.home)
+
 
         }
     }
 }
 
 android {
-    namespace = "com.example.kmp.feature.home"
+    namespace = "com.example.kmp.feature.profile"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

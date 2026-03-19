@@ -1,4 +1,4 @@
-package com.example.kmp.data.local
+package com.example.kmp.common.local.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -12,7 +12,7 @@ interface NewsDao {
     @Query("SELECT * FROM saved_news")
     fun getAllSavedNews(): Flow<List<NewsEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertNews(news: NewsEntity)
 
     @Delete
